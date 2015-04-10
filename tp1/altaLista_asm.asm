@@ -279,7 +279,7 @@ NODE_BFR_ALOCATION:
 		mov r12, rdi; nodo
 		mov r13, rsi; funcio
 
-		mov rdi, [r12+OFFSET_DATO];elimino dato
+		mov  rdi, [r12+OFFSET_DATO];elimino dato
 		call r13
 
 		mov rdi, r12
@@ -306,7 +306,7 @@ NODE_BFR_ALOCATION:
 		push rbp        ;A
 		mov rbp, rsp
 		;push r12        ;putero Data
-		
+		n
 		mov rdi, ALTALISTA_SIZE
 		call malloc
 		;mov r12, rax
@@ -336,6 +336,7 @@ NODE_BFR_ALOCATION:
 		mov r12, rdi; guardo puntero a Lista
 		mov r13, rsi; guardo puntero a tipoFuncionBorrarDato
 
+		
 
 RecorrerYDestruir:
 ;Nos fijamos que la lista esta vacia
@@ -349,8 +350,8 @@ RecorrerYDestruir:
 		mov rbx, [r14+OFFSET_SIGUIENTE]; le paso a RBX la dire del siguiente Nodo
 		mov [r12+OFFSET_PRIMERO], rbx; sobre escribo el puntero del primero con la dire del
 
-		mov r15, [r12+OFFSET_PRIMERO]; seteo el puntero a anterior del nuevo primer como NULL
-		mov qword [r15+OFFSET_ANTERIOR], 0;pero en realidad no hace falta XD, me gustan las chicas
+		;mov r15, [r12+OFFSET_PRIMERO]; seteo el puntero a anterior del nuevo primer como NULL
+		;mov qword [r15+OFFSET_ANTERIOR], 0;pero en realidad no hace falta XD, me gustan las chicas
 
 		mov rdi, r14; le paso la dire del nodo a destruir a RDI
 		call r13; llamamos a destruir nodo
