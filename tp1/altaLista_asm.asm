@@ -306,7 +306,7 @@ NODE_BFR_ALOCATION:
 		push rbp        ;A
 		mov rbp, rsp
 		;push r12        ;putero Data
-		n
+		
 		mov rdi, ALTALISTA_SIZE
 		call malloc
 		;mov r12, rax
@@ -346,15 +346,17 @@ RecorrerYDestruir:
 		
 
 ;Si no esta vacia, 
-		mov r14, [r12+OFFSET_PRIMERO]; le paso a R14 la dire del primer nodo
-		mov rbx, [r14+OFFSET_SIGUIENTE]; le paso a RBX la dire del siguiente Nodo
-		mov [r12+OFFSET_PRIMERO], rbx; sobre escribo el puntero del primero con la dire del
+		mov qword r14, [r12+OFFSET_PRIMERO]; le paso a R14 la dire del primer nodo
+		mov qword rbx, [r14+OFFSET_SIGUIENTE]; le paso a RBX la dire del siguiente Nodo
+		mov qword [r12+OFFSET_PRIMERO], rbx; sobre escribo el puntero del primero con la dire del
 
 		;mov r15, [r12+OFFSET_PRIMERO]; seteo el puntero a anterior del nuevo primer como NULL
 		;mov qword [r15+OFFSET_ANTERIOR], 0;pero en realidad no hace falta XD, me gustan las chicas
 
+
 		mov rdi, r14; le paso la dire del nodo a destruir a RDI
-		call r13; llamamos a destruir nodo
+		mov rsi, r13
+		call nodoBorrar ; llamamos a destruir nodo
 		jmp RecorrerYDestruir
 
 
@@ -389,6 +391,47 @@ RecorrerYDestruir:
 	; float edadMedia( altaLista *l )
 	edadMedia:
 		; COMPLETAR AQUI EL CODIGO
+		;RDI tenemos punto a lista
+		push rbp        ;A
+		mov rbp, rsp
+		push rbx
+		push r12
+		push r13
+		push r14
+
+			mov qword rbx, qword 0 
+			mov qword rax, qword 0
+			mov qword r14, qword 0
+
+			mov r12, [rdi+OFFSET_PRIMERO]
+
+		sigueLoopeando:
+
+
+			mov r13, [r12+OFFSET_DATO]
+			add r14d, [r13+OFFSET_EDAD]
+			inc rbx
+			cmp qword [r12+OFFSET_SIGUIENTE], 0
+			jz finalEdadMedia
+			mov r12, [r12+OFFSET_SIGUIENTE]
+			jmp sigueLoopeando
+
+
+		finalEdadMedia:
+
+			fdivr r14, rbx
+ 			mov rax, r14
+
+		pop r13
+		pop r12
+		pop rbx
+		pop rbp
+		ret 
+
+
+
+
+
 
 	; void insertarOrdenado( altaLista *l, void *dato, tipoFuncionCompararDato f )
 	insertarOrdenado:
