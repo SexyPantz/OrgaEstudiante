@@ -1,10 +1,4 @@
 #include "altaLista.h"
-
-
-
-
-
-
 /** Funciones Auxiliares ya implementadas en C **/
 
 bool string_iguales( char *s1, char *s2 ){
@@ -31,3 +25,8 @@ void insertarAtras( altaLista *l, void *dato ){
     l->ultimo = nuevoNodo;
 }
 
+// ;   ; void nodoBorrar( nodo *n, tipoFuncionBorrarDato f )
+//       nodoBorrar:
+// ;     ; COMPLETAR AQUI EL CODIGO
+//     ;EN RDI TENGO EL PUNTERO AL NODO
+//     ;EN RSI PUNTO A FUNCION tipoFuncionBorrarDato

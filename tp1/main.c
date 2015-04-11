@@ -20,10 +20,17 @@ int main (void){
 	altaLista* listaloca0 = altaListaCrear();
     insertarAtras(listaloca0, manu1);
     insertarAtras(listaloca0, manu2);
-    //int a = edadMedia(listaloca0); 
+    altaLista* listalocaV = altaListaCrear();
+  
+   	char* archivoPrint = "altListPrntASM.txt";
 
-   // listaPantallaGian(listaloca0);
+ altaListaImprimir(listaloca0, archivoPrint, (tipoFuncionImprimirDato) estudianteImprimir);
 
+  	// altaListaImprimir(listalocaV, archivoPrint, (tipoFuncionImprimirDato) estudianteImprimir);
+
+
+
+	altaListaBorrar(listalocaV, (tipoFuncionBorrarDato) estudianteBorrar);
 	altaListaBorrar(listaloca0, (tipoFuncionBorrarDato) estudianteBorrar);
 
 	

@@ -67,9 +67,7 @@
 	bool string_iguales( char *s1, char *s2 );											
 	void insertarAtras( altaLista *l, void *dato );
 
-/** Funciones que hice x que borrarLista no anda :( **/
 
-	void listaPantallaGian(altaLista *l);
 
 
 	
