@@ -1,12 +1,14 @@
 #include "altaLista.h"
 #include <stdio.h>
-
+#include <assert.h>
 void guillotine(char* tete);
 
 int main (void){
 	
-	 estudiante* manu0 = estudianteCrear("asdifu", "0A", 22);
-	  estudiante* manu1 = estudianteCrear("Manuel", "1A", 23);
+
+	 estudiante* manu1 = estudianteCrear("Manuel", "1A", 23);
+	 estudiante* manu2 = estudianteCrear("asdifu", "0A", 22);
+	
 	  //printf("Nombre:%s, \n Grupo:%s, \n Edad:%u, \n", manu0->nombre, manu0->grupo, manu0->edad);
 	  // printf("Nombre:%s, \n Grupo:%s, \n Edad:%u, \n", manu1->nombre, manu1->grupo, manu1->edad);
 
@@ -17,13 +19,12 @@ int main (void){
 
 	altaLista* listaloca0 = altaListaCrear();
     insertarAtras(listaloca0, manu1);
-    insertarAtras(listaloca0, manu0);
+    insertarAtras(listaloca0, manu2);
+    //int a = edadMedia(listaloca0); 
 
-    float a = edadMedia(listaloca0); 
+   // listaPantallaGian(listaloca0);
 
-    printf("Edad media:%f \n", a);
-
-	//altaListaBorrar(listaloca0, (tipoFuncionBorrarDato) estudianteBorrar);
+	altaListaBorrar(listaloca0, (tipoFuncionBorrarDato) estudianteBorrar);
 
 	
 

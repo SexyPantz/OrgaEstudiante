@@ -21,12 +21,15 @@
 	global string_longitud
 	global string_menor
 
+
 ; YA IMPLEMENTADAS EN C
 	extern string_iguales
 	extern insertarAtras
 	extern malloc;<--- YO MANDE ESTO, ME GUSTAN lAS GALLETAS
 	extern free;<--- Y ESTO, ME GUSTAN lAS GALLETAS	
 	extern fprintf
+
+	extern printf
 
 ; /** DEFINES **/    >> SE RECOMIENDA COMPLETAR LOS DEFINES CON LOS VALORES CORRECTOS
 	%define NULL 	qword 0
@@ -58,6 +61,9 @@ section .data
 	formatName: DB '%s', 10, 0
 	formatGrp: DB   9, '%s', 10, 0
 	formatAge: DB 9, '%u', 10, 0
+
+	;formato_estudiante_pantalla: DB "Nombre: %s", 10, 9, "Grupo: %s", 10, 9, "Edad: %u", 10, 0
+
 section .text
 
 ;/** FUNCIONES OBLIGATORIAS DE ESTUDIANTE */    >> PUEDEN CREAR LAS FUNCIONES AUXILIARES QUE CREAN CONVENIENTES
@@ -74,11 +80,10 @@ section .text
 
 		push rbp        ;A
 		mov rbp, rsp
-		push r12        ;A
-		push r13        ;D		
-		push r14        ;A
-		push r15        ;D
-
+		push r12        ;D
+		push r13        ;A		
+		push r14        ;D
+		push r15        ;A
 
 STDNT_MEMOALOCATION:
 		mov r12, rdi ;guardo puntero a nombre
@@ -117,6 +122,7 @@ STDNT_AGE_PALOCATION:
 		push rbp
 		mov rbp, rsp
 		push r12; PUSH X CONV
+		add rbp, 8
 
 		mov r12, rdi 		;moevo puntero a srtuc a r12 
 		mov rdi, [rdi+OFFSET_NOMBRE];muevo a RDI el puntero a el  nombre del estudiante
@@ -125,6 +131,8 @@ STDNT_AGE_PALOCATION:
 		call free ;Libero la meno del grupo
 		mov rdi, r12; muevo a RDI el puntero a Struc
 		call free ;libero memo, liberando el campo EDAD en el proseso
+
+		sub rbp, 8
 		pop r12 ;pops x convenxion
 		pop rbp	
 		ret
@@ -248,20 +256,25 @@ STDNT_AGE_PALOCATION:
 		push rbp        ;A
 		mov rbp, rsp
 		push r12        ;putero Data
+		add rsp, 8
+
+
 		mov r12, rdi
 
 NODE_MEMOALOCATION:
 		mov rdi, NODO_SIZE
 		call malloc
 
-NODE_DAT_ALOCATION:
-		mov [rax+OFFSET_DATO], r12
-
 NODE_NXT_ALOCATION:
  		mov qword [rax+OFFSET_SIGUIENTE], 0
 
 NODE_BFR_ALOCATION:
  		mov qword [rax+OFFSET_ANTERIOR], 0
+
+NODE_DAT_ALOCATION:
+		mov [rax+OFFSET_DATO], r12
+
+ 		sub rsp, 8
 		pop r12        
 		pop rbp		
 		ret
@@ -285,8 +298,8 @@ NODE_BFR_ALOCATION:
 		mov rdi, r12
 		call free
 
-		pop r12
 		pop r13
+		pop r12
 		pop rbp	
 		ret
 
@@ -324,13 +337,13 @@ NODE_BFR_ALOCATION:
 		;COMPLETAR AQUI EL CODIGO
 		;EN RDI TENGO EL PUNTERO A LISTA
 		;EN RSI PUNTO A FUNCION tipoFuncionBorrarDato
-		push rbp
+		push rbp;A
 		mov rbp, rsp
-		push rbx
-		push r12
-		push r13
-		push r14
-		push r15
+		push rbx;D
+		push r12;A
+		push r13;D
+		push r14;A
+		;push r15;D
 
 
 		mov r12, rdi; guardo puntero a Lista
@@ -346,9 +359,9 @@ RecorrerYDestruir:
 		
 
 ;Si no esta vacia, 
-		mov qword r14, [r12+OFFSET_PRIMERO]; le paso a R14 la dire del primer nodo
-		mov qword rbx, [r14+OFFSET_SIGUIENTE]; le paso a RBX la dire del siguiente Nodo
-		mov qword [r12+OFFSET_PRIMERO], rbx; sobre escribo el puntero del primero con la dire del
+		mov r14, [r12+OFFSET_PRIMERO]; le paso a R14 la dire del primer nodo
+		mov rbx, [r14+OFFSET_SIGUIENTE]; le paso a RBX la dire del siguiente Nodo
+		mov qword 	[r12+OFFSET_PRIMERO], rbx; sobre escribo el puntero del primero con la dire del
 
 		;mov r15, [r12+OFFSET_PRIMERO]; seteo el puntero a anterior del nuevo primer como NULL
 		;mov qword [r15+OFFSET_ANTERIOR], 0;pero en realidad no hace falta XD, me gustan las chicas
@@ -366,7 +379,7 @@ RecorrerYDestruir:
 		mov rdi, r12
 		call free
 
-		pop r15
+		;pop r15
 		pop r14
 		pop r13
 		pop r12
@@ -382,6 +395,68 @@ RecorrerYDestruir:
 	altaListaImprimir:
 		; COMPLETAR AQUI EL CODIGO
 
+		; COMPLETAR AQUI EL CODIGO
+		;RDI tenemos punto a lista
+		;RSI tenemos puntero a archivo
+		;RDXtenemos puntor a tipoFuncionImprimirDato
+		;void estudianteImprimir( RDI->estudiante *e, RSI->FILE *file )
+
+		push rbp;A
+		mov rbp, rsp
+		push rbx;D
+		push r12;A
+		push r13;D
+		push r14;A
+		push r15;D
+		add rbp, 8 ;A
+
+
+		mov rbx, rdi; guardo puntero a Lista
+		mov r12, rsi; guardo puntero a archivo
+		mov r13, rdx; guardo puntero a tipoFuncionImprimirDato
+
+
+		
+
+RecorrerEImprimir:
+;Nos fijamos que la lista esta vacia
+		cmp qword [rbx+OFFSET_PRIMERO], 0;colamparo con 0 para ver si hay siguiente
+		jz altaListaImprimir.llegamosAlFinal; si ese el caso salto a borrar la estruc
+
+		
+
+;Si no esta vacia, 
+
+		mov r14, [rbx+OFFSET_PRIMERO]; le paso a R14 la dire del primer nodo
+		mov r15, [r14+OFFSET_SIGUIENTE]; le paso a RBX la dire del siguiente Nodo
+		mov qword [rbx+OFFSET_PRIMERO], r15; sobre escribo el puntero del primero con la dire del
+
+		;mov r15, [r12+OFFSET_PRIMERO]; seteo el puntero a anterior del nuevo primer como NULL
+		;mov qword [r15+OFFSET_ANTERIOR], 0;pero en realidad no hace falta XD, me gustan las chicas
+
+
+		;void estudianteImprimir( RDI->estudiante *e, RSI->FILE *file )
+		mov rdi, r14; le paso la dire del nodo a destruir a RDI
+		mov rsi, r13
+		call 
+		jmp RecorrerEImprimir
+
+
+
+
+		altaListaImprimir.llegamosAlFinal:
+		mov rdi, r12
+		call free
+
+		sub rbp, 8
+		pop r15
+		pop r14
+		pop r13
+		pop r12
+		pop rbx
+		pop rbp	
+		ret
+
 		
 
 
@@ -392,41 +467,42 @@ RecorrerYDestruir:
 	edadMedia:
 		; COMPLETAR AQUI EL CODIGO
 		;RDI tenemos punto a lista
-		push rbp        ;A
-		mov rbp, rsp
-		push rbx
-		push r12
-		push r13
-		push r14
+		; push rbp        ;A
+		; mov rbp, rsp
+		; push rbx
+		; push r12
+		; push r13
+		; push r14
 
-			mov qword rbx, qword 0 
-			mov qword rax, qword 0
-			mov qword r14, qword 0
+		; 	mov qword rbx, qword 0 
+		; 	mov qword rax, qword 0
+		; 	mov qword r14, qword 0
 
-			mov r12, [rdi+OFFSET_PRIMERO]
+		; 	mov r12, [rdi+OFFSET_PRIMERO]
 
-		sigueLoopeando:
-
-
-			mov r13, [r12+OFFSET_DATO]
-			add r14d, [r13+OFFSET_EDAD]
-			inc rbx
-			cmp qword [r12+OFFSET_SIGUIENTE], 0
-			jz finalEdadMedia
-			mov r12, [r12+OFFSET_SIGUIENTE]
-			jmp sigueLoopeando
+		; sigueLoopeando:
 
 
-		finalEdadMedia:
+		; 	mov r13, [r12+OFFSET_DATO]
+		; 	add r14d, [r13+OFFSET_EDAD]
+		; 	inc rbx
+		; 	cmp qword [r12+OFFSET_SIGUIENTE], 0
+		; 	jz finalEdadMedia
+		; 	mov r12, [r12+OFFSET_SIGUIENTE]
+		; 	jmp sigueLoopeando
 
-			fdivr r14, rbx
- 			mov rax, r14
 
-		pop r13
-		pop r12
-		pop rbx
-		pop rbp
-		ret 
+		; finalEdadMedia:
+
+		; 	fdivr r14, rbx
+ 	; 		mov rax, r14
+
+ 			
+		; pop r13
+		; pop r12
+		; pop rbx
+		; pop rbp
+		; ret 
 
 
 
@@ -451,6 +527,8 @@ RecorrerYDestruir:
 		mov rbp, rsp
 		push rbx
 		push r12
+	
+
 		mov r12, rdi
 		call string_longitud ;rax la longitud del elem
 		inc rax	
@@ -467,6 +545,7 @@ RecorrerYDestruir:
 		mov [rax+rcx-1], bl
 		loop CopiandoConRCX
 		casoVacio:
+
 		pop r12
 		pop rbx
 		pop rbp
@@ -474,6 +553,8 @@ RecorrerYDestruir:
 
 
 	string_longitud:
+		push rbp        ;A
+		mov rbp, rsp
 
 		;rdi, puntero inical
 		mov rax, rdi
@@ -484,6 +565,8 @@ RecorrerYDestruir:
 		jmp inicioSLL
 		finstring:
 		sub rax, rdi	
+
+		pop rbp
 		ret	
 
 
@@ -492,6 +575,8 @@ RecorrerYDestruir:
 		  push rbp        
 		  mov rbp, rsp
 		  push r12      
+		  add rbp, 8
+
 loopMenor:mov r12b, [rsi]
 		  inc rsi
 		  cmp byte [rdi], r12b
@@ -505,14 +590,11 @@ loopMenor:mov r12b, [rsi]
 esMenor:  mov rax, TRUE
 		  jmp FINmenor
 nesMenor: mov rax, FALSE
-FINmenor: pop r12
+
+FINmenor: sub rbp, 8
+		  pop r12
 		  pop rbp
 		  ret
-
-
-
-
-
 
 
 
