@@ -126,7 +126,7 @@ STDNT_AGE_PALOCATION:
 		push rbp
 		mov rbp, rsp
 		push r12; PUSH X CONV
-		add rbp, 8
+		sub rbp, 8
 
 		mov r12, rdi 		;moevo puntero a srtuc a r12 
 		mov rdi, [rdi+OFFSET_NOMBRE];muevo a RDI el puntero a el  nombre del estudiante
@@ -136,7 +136,7 @@ STDNT_AGE_PALOCATION:
 		mov rdi, r12; muevo a RDI el puntero a Struc
 		call free ;libero memo, liberando el campo EDAD en el proseso
 
-		sub rbp, 8
+		add rbp, 8
 		pop r12 ;pops x convenxion
 		pop rbp	
 		ret
@@ -166,11 +166,12 @@ STDNT_AGE_PALOCATION:
 		jmp FIN_Loco; Salta al fin de la funcion
 
 		THEN_NOMBREQ:
-		mov edi, [r12+OFFSET_EDAD]
-		mov esi, [r13+OFFSET_EDAD]
-		cmp edi, esi
+		mov edi, dword [r12+OFFSET_EDAD]
+		mov esi, dword  [r13+OFFSET_EDAD]
+		cmp rdi, rsi
 		jl dio_menor
 		mov rax, 0
+		jmp FIN_Loco
 		dio_menor:
 		mov rax, 1
 
@@ -233,9 +234,6 @@ STDNT_AGE_PALOCATION:
 		mov rsi, formatAge
 		call fprintf
 
-
-
-
 		pop r13
 		pop r12
 		pop rbp
@@ -258,7 +256,7 @@ STDNT_AGE_PALOCATION:
 		push rbp        ;A
 		mov rbp, rsp
 		push r12        ;putero Data
-		add rsp, 8
+		sub rsp, 8
 
 
 		mov r12, rdi
@@ -276,7 +274,7 @@ NODE_BFR_ALOCATION:
 NODE_DAT_ALOCATION:
 		mov [rax+OFFSET_DATO], r12
 
- 		sub rsp, 8
+ 		add rsp, 8
 		pop r12        
 		pop rbp		
 		ret
@@ -469,10 +467,10 @@ llegamosAlFinaldLista2Print:
 		; RDI tenemos punto a lista
 		push rbp        ;A
 		mov rbp, rsp
-		push rbx
-		push r12
-		push r13
-		push r14
+		push rbx 		;D 
+		push r12 		;A 
+		push r13		;D
+		push r14		;A
 
 			mov qword rbx, qword 0 
 			mov qword rax, qword 0
@@ -481,13 +479,13 @@ llegamosAlFinaldLista2Print:
 		VeoSiListaEdadMediaEsVacia:
 
 			mov r12, [rdi+OFFSET_PRIMERO]
-			cmp qword [r12], 0
+			cmp qword r12, 0
 			jz edadMediaCero
 
 			;caso contrario
 		CalculoSumatoriaDeEdad:
 			mov r13, [r12+OFFSET_DATO];paso puntero al dato a R13
-			add r14d, [r13+OFFSET_EDAD];le sumo la edad del Alum en R13 (un unsing int, de 4B) a r14d
+			add dword r14d, dword[r13+OFFSET_EDAD];le sumo la edad del Alum en R13 (un unsing int, de 4B) a r14d
 			inc rbx; incremento contador
 			cmp qword [r12+OFFSET_SIGUIENTE], 0;camparp para saber si llegue al final
 			jz edadMediaDiv; si es asi jump al calculo del Media
@@ -496,13 +494,23 @@ llegamosAlFinaldLista2Print:
 
 
 		edadMediaDiv:
-			mov rax, r14
- 			mov rax, r14
 
- 			jmp finalEdadMedia
+
+		edadMediaCalculos:
+			cvtsi2ss xmm0, r14; cvtsi2ss, con esto convertimos el sumatoria (un unsing int) a flaot y lo guardamos en XMM0
+			cvtsi2ss xmm1, rbx; con esto convertimos al contador (un unsing int) a flaot y lo guardamos en XMM1
+			divss xmm0, xmm1 ; hacemos la div de los floats y el result se guarda en el primer operand XMM0
+
+			jmp finalEdadMedia
 
  		edadMediaCero:
- 			mov qword rax, 0; si es vacio le paso 0 a RAX como resultado
+ 			; movdqu xmm0, 0; si es vacio le paso 0 a XMM0 como resultado
+ 			mov qword rbx, 0
+			movq  xmm0, rbx
+			;subss xmm0, xmm0 <--- alternativa mas optima
+			;mov qword rax, 0
+			;movq xmm1, rax
+			;movlhps xmm0,xmm1
 
 		finalEdadMedia:
 
@@ -532,7 +540,7 @@ llegamosAlFinaldLista2Print:
 		push r13		;D
 		push r14        ;A
 		push r15 		;D
-		add rbp, 8 		;A
+		sub rbp, 8 		;A
 
 			mov qword rax, 0
 			mov rbx, rdi; guardo puntero a Lista
@@ -542,12 +550,12 @@ llegamosAlFinaldLista2Print:
 
 		VeoSiListaEsVacia:
 
-			cmp qword [rdi], 0; veo si la lista es vacia
+			cmp qword [rdi+OFFSET_PRIMERO], 0; veo si la lista es vacia
 
 			jz AgregarVacio; si es el caso jmp a agrelgar e
 
 		VeoSiDatoMayorAUltimo:
-			mov r14 ,  [rdx+OFFSET_ULTIMO]
+			mov r14 ,  [rbx+OFFSET_ULTIMO]
 			mov rdi, [r14 +OFFSET_DATO]
 			call r13
 			cmp rax, byte 0
@@ -586,23 +594,23 @@ llegamosAlFinaldLista2Print:
 			jz BuscoPorListaNoVacia
 			mov rdi, r12
 			call nodoCrear
-			mov r15, [r14+OFFSET_SIGUIENTE]
-			mov [r15+OFFSET_ANTERIOR], rax
-			mov [r14+OFFSET_SIGUIENTE], rax
-			mov [rax+OFFSET_SIGUIENTE], r15
-			mov [rax+OFFSET_ANTERIOR], r14
+			mov r15, [r14+OFFSET_ANTERIOR]
+			mov [r15+OFFSET_SIGUIENTE], rax
+			mov [r14+OFFSET_ANTERIOR], rax
+			mov [rax+OFFSET_SIGUIENTE], r14
+			mov [rax+OFFSET_ANTERIOR], r15
 			jmp SalgoDeInsertarOrdenado
 
 		AgregarVacio:
 
 		mov rdi, r12
 		call nodoCrear
-		mov[rdx+OFFSET_PRIMERO], rax
-		mov[rdx+OFFSET_ULTIMO], rax
+		mov[rbx+OFFSET_PRIMERO], rax
+		; mov[rbx+OFFSET_ULTIMO], rax
 
 		SalgoDeInsertarOrdenado:
 
-		sub rbp, 8
+		add rbp, 8
 		pop r15
 		pop r14	
 		pop r13
@@ -622,59 +630,128 @@ llegamosAlFinaldLista2Print:
 		push r13		;D
 		push r14        ;A
 		push r15 		;D
-		add rbp, 8		;A
+		sub rbp, 8		;A
 
 		;RDI puntero a lista
 		;RSI puntero a tipoFuncionCompararDato
 		;RDX puntero a dato
 
-	MeFijoSiListaEsVacia:
-
-		cmp qword [rdi+OFFSET_PRIMERO], 0
-		jz FinFiltrarLista
-
-
 		mov rbx, rdi;Lista
 		mov r12, rsi;Funcio
 		mov r13, rdi;Dato a comparar(
-				;para compara se le pasan primer el dato actual(RDI), dato comprar (RSI)
+		;para compara se le pasan primer el dato actual(RDI), dato comprar (RSI)
+
+
+	MeFijoSiListaEsVacia:
+
+		cmp qword [rbx+OFFSET_PRIMERO], 0
+		je FinFiltrarLista
+
+
+		
+	MeFijoSiSoloHayUnNodo:
+
+		mov r14, [rbx+OFFSET_PRIMERO]
+		cmp qword [r14+OFFSET_SIGUIENTE], 0
+		jne MeFijoSiUltimoCumple
+
+
+		 SeQueSoloHayUnNodo:
+		 	
+		 	mov rdi, [rbx+OFFSET_PRIMERO] ;no hace falta
+			mov rdi, [rdi+OFFSET_DATO]
+			mov rsi, r13
+			call r12
+			cmp rax, byte 1
+			je FinFiltrarLista
+
+		UnNodoQueNoCumple:
+			mov rdi, [rbx+OFFSET_PRIMERO] ;no hace falta
+			mov rsi, estudianteBorrar
+			call nodoBorrar
+			mov qword [rbx+OFFSET_PRIMERO], 0
+			mov qword [rbx+OFFSET_ULTIMO], 0
+			jmp FinFiltrarLista
+
+
 
 	MeFijoSiUltimoCumple:
 		mov rdi, [rbx+OFFSET_ULTIMO]
 		mov rdi, [rdi+OFFSET_DATO]
 		mov rsi, r13
 		call r12
-		cmp rax, 1
-		jz MeFijoSiPrimeroCumple
-		mov r12, [rbx+OFFSET_ULTIMO]
-		mov r12, [r12+OFFSET_ANTERIOR]
-		mov qword [r12+OFFSET_SIGUIENTE], 0
+		cmp rax, byte 1
+
+		UltimoSiCumple:
+		je MeFijoSiPrimeroCumple ;CUMPLE< JMP A PRIM
+
+		UltimoNoCumple:
 		mov rdi, [rbx+OFFSET_ULTIMO]
-		mov rsi, estudianteBorrar
+		mov r12, [rdi+OFFSET_ANTERIOR]
+		mov qword [r12+OFFSET_SIGUIENTE], 0
 		mov [rbx+OFFSET_ULTIMO], r12
+		mov rsi, estudianteBorrar
 		call nodoBorrar
+		jmp MeFijoSiSoloHayUnNodo
+
 
 	MeFijoSiPrimeroCumple:
+
+		mov rdi, [rbx+OFFSET_PRIMERO]
+		mov rdi, [rdi+OFFSET_DATO]
+		mov rsi, r13
+		call r12
+		cmp rax, byte 1
+
+		PrimeroSiCumple:
+		; je MeFijoSiCumplenLosNodos ;CUMPLE< JMP A PRIM
+
+		PrimeroNoCumple:
+		mov rdi, [rbx+OFFSET_PRIMERO]
+		mov r14, [rdi+OFFSET_SIGUIENTE]
+		mov qword [r14+OFFSET_ANTERIOR], 0
+		mov [rbx+OFFSET_PRIMERO], r14
+		mov rsi, estudianteBorrar
+		call nodoBorrar
+		jmp MeFijoSiSoloHayUnNodo
+
 
 
 	MeFijoSiCumplenLosNodos:
 
+		mov r14, [rbx+OFFSET_PRIMERO]
 
+		PasoANodoSigNodo:
+		cmp qword [r14+OFFSET_SIGUIENTE], 0
+		je FinFiltrarLista
+		mov r14, [r14+OFFSET_SIGUIENTE]
+
+		VeoSiNodoParadoCumple:
 		
+		mov rdi, [r14+OFFSET_DATO]
+		mov rsi, r13
+		call r12
+		cmp rax, byte 1
 
+		NodoParadoSiCumple:
+		je PasoANodoSigNodo
 
-
-
-
-
-
-
-
+		NodoParadoNoCumple:
+		mov rdi, r14
+		mov r14, [rdi+OFFSET_ANTERIOR]
+		mov r15, [rdi+OFFSET_SIGUIENTE]
+		mov [r14+OFFSET_SIGUIENTE], r15
+		mov [r15+OFFSET_ANTERIOR], r14
+		mov qword [rdi+OFFSET_ANTERIOR], 0
+		mov qword [rdi+OFFSET_SIGUIENTE], 0
+		mov rsi, estudianteBorrar
+		call nodoBorrar
+		jmp MeFijoSiSoloHayUnNodo
 
 
 	FinFiltrarLista:
 
-		sub rbp, 8
+		add rbp, 8
 		pop r15
 		pop r14	
 		pop r13
@@ -741,13 +818,14 @@ llegamosAlFinaldLista2Print:
 		pop rbp
 		ret	
 
-
+; 
 	string_menor:
 
 		  push rbp        
 		  mov rbp, rsp
 		  push r12      
-		  add rbp, 8
+		  sub rbp, 8
+		  mov qword rax, 0
 
 loopMenor:mov r12b, [rsi]
 		  inc rsi
@@ -759,11 +837,13 @@ loopMenor:mov r12b, [rsi]
 		  inc rdi
 		  jmp loopMenor
 		  ;xor rax, rax
-esMenor:  mov rax, TRUE
+esMenor:  
+		  mov rax, 1
 		  jmp FINmenor
-nesMenor: mov rax, FALSE
+nesMenor: 
+		  mov rax, 0
 
-FINmenor: sub rbp, 8
+FINmenor: add rbp, 8
 		  pop r12
 		  pop rbp
 		  ret

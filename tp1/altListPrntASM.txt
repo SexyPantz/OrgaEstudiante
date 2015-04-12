@@ -1,35 +1,142 @@
-vacia
-vacia
-Manuel
+
+02A2
+	1A
+	0
+Facundo
+	9A
+	18
+Ale
+	B9
+	50
+Batista
+	78
+	33
+Batista
+	789
+	20
+Facundo
+	789
+	18
+C3P0
+	90
+	90
+Diego
 	1A
 	23
-Manuel
+5689
+	89
+	33
+Ruperta
+	1213
+	120
+Batista
+	78
+	33
+F000
+	13
+	900
+02A2
+	1A
+	0
+Facundo
+	9A
+	18
+Ale
+	B9
+	50
+Batista
+	78
+	33
+Batista
+	789
+	20
+Facundo
+	789
+	18
+C3P0
+	90
+	90
+Diego
 	1A
 	23
-asdifu
-	0A
-	22
-Manuel
+5689
+	89
+	33
+Ruperta
+	1213
+	120
+Batista
+	78
+	33
+F000
+	13
+	900
+02A2
+	1A
+	0
+Facundo
+	9A
+	18
+Ale
+	B9
+	50
+Batista
+	78
+	33
+Batista
+	789
+	20
+Facundo
+	789
+	18
+C3P0
+	90
+	90
+Diego
 	1A
 	23
-asdifu
-	0A
-	22
-Manuel
+5689
+	89
+	33
+Ruperta
+	1213
+	120
+Batista
+	78
+	33
+F000
+	13
+	900
+02A2
+	1A
+	0
+5689
+	89
+	33
+Ale
+	B9
+	50
+Batista
+	78
+	33
+Batista
+	789
+	20
+C3P0
+	90
+	90
+Diego
 	1A
 	23
-asdifu
-	0A
-	22
-Manuel
-	1A
-	23
-asdifu
-	0A
-	22
-Manuel
-	1A
-	23
-asdifu
-	0A
-	22
+F000
+	13
+	900
+Facundo
+	9A
+	18
+Facundo
+	789
+	18
+Ruperta
+	1213
+	120
