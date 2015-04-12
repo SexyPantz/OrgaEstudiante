@@ -7,11 +7,12 @@
 	*Finnaly done with insertarOrdena (TESTED FULL)
 	*filtrarLista still aint working
 	*Its 3am on weekend night and Im stuck coding in fucking assembly
+	*Testing a git commit aliasing thingy, might work
 
 ### NOTES
 ---------
 The status of each fuction is as follows:
-
+	
 	** estudianteCrear			(TESTED FULL)
 	** estudianteBorrar			(TESTED FULL)
 	** menorEstudiante			(TESTED FULL)
