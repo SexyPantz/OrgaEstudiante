@@ -457,9 +457,10 @@ void testInsertarOrdenado() {
 void testFiltrarAltaLista(){
 	printf("\n**TEST filtrarAltaLista**\n");
 	printf("\n**************************************\n");
-	printf("\t\n*CREANDO LISTA*\n");
+	printf("\t\n*CREANDO LISTAS*\n");
 	altaLista* listaRecortar = altaListaCrear();
-	printf("\t\n*LISTA ECHA*\n");
+	altaLista* listaSave = altaListaCrear();
+	printf("\t\n*LISTAS ECHA*\n");
 	printf("\n**************************************\n");
 	printf("\t\n*GENERANDO ESTUDIANTE BARDERO*\n");
 	estudiante* cmp = estudianteCrear("Gianfranco","Lechuga",12);
@@ -473,17 +474,17 @@ void testFiltrarAltaLista(){
 	printf("\n**************************************\n");
 
 	printf("\t\n*GENERANDO NERDS*\n");
-	estudiante* e0 = estudianteCrear("02A2", "1A", 0);
+	estudiante* e0 = estudianteCrear("02A2", "1A", 0); 
 	estudiante* e1 = estudianteCrear("Diego", "78", 33);
-	estudiante* e2 = estudianteCrear("Luke", "1A", 50);
-	estudiante* e3 = estudianteCrear("Headroom", "1A", 50);
-	estudiante* e4 = estudianteCrear("Ruperrta", "78", 33);
+	estudiante* e2 = estudianteCrear("Luke", "1A", 50); //V
+	estudiante* e3 = estudianteCrear("Headroom", "1A", 50);//V
+	estudiante* e4 = estudianteCrear("Ruperrta", "78", 33);//V
 	estudiante* e5 = estudianteCrear("Batista", "78", 33);
-	estudiante* e6 = estudianteCrear("Mao", "789", 18);
+	estudiante* e6 = estudianteCrear("Mao", "789", 18);//V
 	estudiante* e7 = estudianteCrear("C3P0", "90", 90);
-	estudiante* e8 = estudianteCrear("Khan", "89", 33);
+	estudiante* e8 = estudianteCrear("Khan", "89", 33);//V
 	estudiante* e9 = estudianteCrear("", "1213", 120);
-	estudiante* eA = estudianteCrear("Noe", "13", 900);
+	estudiante* eA = estudianteCrear("Zoe", "13", 900);//V
 	printf("\t\n*NERDS CREADOS*\n");
 	
 	//printf("\tAgregando un estudiante a la lista...\n");
@@ -513,31 +514,47 @@ void testFiltrarAltaLista(){
 
 	printf("\t\n*METIENDO NERDS EN FILA*\n");
 	insertarAtras(listaRecortar, e0);
+
 	insertarAtras(listaRecortar, e1);
 	insertarAtras(listaRecortar, e2);
 	insertarAtras(listaRecortar, e3);
-	// insertarAtras(listaRecortar, e4);
-	// insertarAtras(listaRecortar, e5);
-	// insertarAtras(listaRecortar, e6);
-	// insertarAtras(listaRecortar, e7);
-	// insertarAtras(listaRecortar, e8);
-	// insertarAtras(listaRecortar, e9);
-	// insertarAtras(listaRecortar, eA);
+	insertarAtras(listaRecortar, e4);
+	insertarAtras(listaRecortar, e5);
+	insertarAtras(listaRecortar, e6);
+	insertarAtras(listaRecortar, e7);
+	insertarAtras(listaRecortar, e8);
+	insertarAtras(listaRecortar, e9);
+	insertarAtras(listaRecortar, eA);
+
+	//insertarAtras(listaSave, e0);
+	//insertarAtras(listaSave, e1);
+	//insertarAtras(listaSave, e5);
+	//insertarAtras(listaSave, e6);
+	//insertarAtras(listaSave, e7);
+	insertarAtras(listaSave, e9);
 	printf("\t\n*NERDS EN SOTANO*\n");
 	printf("\n**************************************\n");
 
 
 	printf("\t\n*VICTIMAS*\n");
 	listaEnPantalla(listaRecortar);
+	printf("\t\n*SALVO*\n");
+	listaEnPantalla(listaSave);
 
 	printf("\n**************************************\n");
 	printf("\t\n*BULLYING*\n");
 	filtrarAltaLista(listaRecortar, (tipoFuncionCompararDato) menorEstudiante, cmp);
+	filtrarAltaLista(listaSave, (tipoFuncionCompararDato) menorEstudiante, cmp);
 	printf("\t\n*BULLYING ECHO*\n");
 	printf("\n**************************************\n");
 
 	printf("\t\n*SOBREVIVEN*\n");
 	listaEnPantalla(listaRecortar);
+
+	printf("\n**************************************\n");
+
+	printf("\t\n*ESPERADA*\n");
+	listaEnPantalla(listaSave);
 	//altaListaImprimir(lista, "listafiltrada.txt", (tipoFuncionImprimirDato) estudianteImprimir);
 	//nodo* primero = lista->primero;
 	//nodo* segundo = primero->siguiente;
@@ -555,7 +572,9 @@ void testFiltrarAltaLista(){
 
 	printf("\t\n*BORRANDO NERDS*\n");
 	altaListaBorrar(listaRecortar, (tipoFuncionBorrarDato) estudianteBorrar);
+	altaListaBorrar(listaSave, (tipoFuncionBorrarDato) estudianteBorrar);
 	printf("\t\n*LISTA BORRADA*\n");
+
 }
 
 int main (void){
@@ -564,7 +583,7 @@ int main (void){
 	// testsStringCopiar();
 	// testCompararStrings();
 	// testCrearYBorrarEstudiante();
-	// testCompararEstudiantes();
+	//testCompararEstudiantes();
 	// testEstudianteConFormato();
 	// testEstudianteImprimir();
 	// testCrearYBorrarNodo();

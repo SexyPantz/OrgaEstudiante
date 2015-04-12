@@ -651,21 +651,15 @@ llegamosAlFinaldLista2Print:
 
 
 	MeFijoSiListaEsVacia:
-
 		cmp qword [rbx+OFFSET_PRIMERO], 0
 		je FinFiltrarLista
-
-
 		
 	MeFijoSiSoloHayUnNodo:
-
 		mov r14, [rbx+OFFSET_PRIMERO]
 		cmp qword [r14+OFFSET_SIGUIENTE], 0
 		jne MeFijoSiUltimoCumple
 
-
 		 SeQueSoloHayUnNodo:
-		 	
 		 	mov rdi, [rbx+OFFSET_PRIMERO] ;no hace falta
 			mov rdi, [rdi+OFFSET_DATO]
 			mov rsi, r13
@@ -681,26 +675,24 @@ llegamosAlFinaldLista2Print:
 			mov qword [rbx+OFFSET_ULTIMO], 0
 			jmp FinFiltrarLista
 
-
-
 	MeFijoSiUltimoCumple:
 		mov rdi, [rbx+OFFSET_ULTIMO]
 		mov rdi, [rdi+OFFSET_DATO]
 		mov rsi, r13
 		call r12
-		cmp rax, byte 1
+		cmp qword rax, 1
 
 		UltimoSiCumple:
 		je MeFijoSiPrimeroCumple ;CUMPLE< JMP A PRIM
 
 		UltimoNoCumple:
 		mov rdi, [rbx+OFFSET_ULTIMO]
-		mov r12, [rdi+OFFSET_ANTERIOR]
-		mov qword [r12+OFFSET_SIGUIENTE], 0
-		mov [rbx+OFFSET_ULTIMO], r12
+		mov r14, [rdi+OFFSET_ANTERIOR]
+		mov qword [r14+OFFSET_SIGUIENTE], 0
+		mov [rbx+OFFSET_ULTIMO], r14
 		mov rsi, estudianteBorrar
 		call nodoBorrar
-		jmp MeFijoSiSoloHayUnNodo
+		jmp MeFijoSiListaEsVacia
 
 
 	MeFijoSiPrimeroCumple:
@@ -709,10 +701,10 @@ llegamosAlFinaldLista2Print:
 		mov rdi, [rdi+OFFSET_DATO]
 		mov rsi, r13
 		call r12
-		cmp rax, byte 1
+		cmp qword rax, 1
 
 		PrimeroSiCumple:
-		; je MeFijoSiCumplenLosNodos ;CUMPLE< JMP A PRIM
+		je MeFijoSiCumplenLosNodos ;CUMPLE< JMP A PRIM
 
 		PrimeroNoCumple:
 		mov rdi, [rbx+OFFSET_PRIMERO]
@@ -721,7 +713,7 @@ llegamosAlFinaldLista2Print:
 		mov [rbx+OFFSET_PRIMERO], r14
 		mov rsi, estudianteBorrar
 		call nodoBorrar
-		jmp MeFijoSiSoloHayUnNodo
+		jmp MeFijoSiListaEsVacia
 
 
 
@@ -754,7 +746,9 @@ llegamosAlFinaldLista2Print:
 		mov qword [rdi+OFFSET_SIGUIENTE], 0
 		mov rsi, estudianteBorrar
 		call nodoBorrar
-		jmp MeFijoSiSoloHayUnNodo
+		jmp MeFijoSiListaEsVacia
+		; jmp FinFiltrarLista ;OJO CORTA LA FUNCION DSP DE SACAR UN NODO!!
+		; jmp MeFijoSiSoloHayUnNodo
 
 
 	FinFiltrarLista:

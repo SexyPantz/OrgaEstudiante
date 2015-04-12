@@ -2,12 +2,40 @@
 ---------------------------------------------------
 ---------------------------------------------------
 
+## UPDATE 12/04/2015
+--------------------
+	*Managed to delet almost all bugs and pached up all mem leaks
+	*There is still a pseudo bug when the program tries to delet a student with an empty name (""). It doesnt break the program but makes valgrin go berserk.
+
+### NOTES
+---------
+The status of each fuction is as follows:
+	
+	** estudianteCrear			(TESTED FULL)
+	** estudianteBorrar			(TESTED FULL)
+	** menorEstudiante			(TESTED FULL)
+	** estudianteConFormato		(TESTED FULL)
+	** estudianteImprimir		(TESTED FULL)
+	** nodoCrear				(TESTED FULL)
+	** nodoBorrar				(TESTED FULL)
+	** altaListaCrear			(TESTED FULL)
+	** altaListaBorrar			(TESTED FULL)
+	** altalistaImprimir		(TESTED FULL)
+	** edadMedia				(TESTED FULL)
+	** insertarOrdenado			(TESTED FULL)
+	** filtrarAltaLista			(TESTED FULL)
+	** string_copiar			(TESTED FULL)
+	** string_longitud			(TESTED FULL)
+	** string_menor				(TESTED FULL)
+	**listaEnPantalla			(WORKS - UNTESTED)
+
 ## UPDATE 11/04/2015
 --------------------
 	*Finnaly done with insertarOrdena (TESTED FULL)
 	*filtrarLista still aint working
 	*Its 3am on weekend night and Im stuck coding in fucking assembly
-	*Testing a git commit aliasing thingy, might work
+	*Testing a git commit aliasing thingy, have to push manually
+
 
 ### NOTES
 ---------
