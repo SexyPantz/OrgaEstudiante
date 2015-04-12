@@ -21,6 +21,10 @@
 	global string_longitud
 	global string_menor
 
+; MIAS	
+	global listaEnPantalla
+
+
 
 ; YA IMPLEMENTADAS EN C
 	extern string_iguales
@@ -61,6 +65,7 @@ section .rodata
 section .data
 	;formatName: DB '%s',10, 9, '%s', 10, 9, '%u', 10, 0
 	formatName: DB '%s', 10, 0
+	formatScreen: DB "Nombre: %s", 10, 9, "Grupo %s", 10, 9, "Edad, %u", 10, 0
 	formatGrp: DB   9, '%s', 10, 0
 	formatAge: DB 9, '%u', 10, 0
 	formatFileAppend: DB 'a+', 0
@@ -145,7 +150,7 @@ STDNT_AGE_PALOCATION:
 	menorEstudiante:
 		;rdi, al primer estudiante
 		;rsi al segundo 
-
+		;TRUE IF 1er < 2do else False
 		push rbp 
 		mov rbp, rsp
 		push r13
@@ -156,24 +161,24 @@ STDNT_AGE_PALOCATION:
 
 		mov rdi, [r12+OFFSET_NOMBRE]; paso a rdi el puntero al nomber del 1er Estu
 		mov rsi, [r13+OFFSET_NOMBRE]; paso a rsi el puntero al nomber del 1do estu
-		call string_iguales; call string_iguales, en RAX escupe 1(TRUE) o 0(FALSE) acorde al input
-		cmp rax, 1; comparo RAX con 1(TRUE)
-		jz THEN_NOMBREQ; En caso afirmativo salta a THE_NOMBREQ (THEN NOMBRE IGUAL)
+		call string_iguales			; call string_iguales, en RAX escupe 1(TRUE) o 0(FALSE) acorde al input
+		cmp rax, byte 1				; comparo RAX con 1(TRUE)
+		je MismoNombre; En caso afirmativo salta a THE_NOMBREQ (THEN NOMBRE IGUAL)
 					   ; En caso contrario sigue de largo, podemos asumir que los nombre no son iguales 
 		mov rdi, [r12+OFFSET_NOMBRE]; paso a rdi el puntero al nomber del 1er Estu
 		mov rsi, [r13+OFFSET_NOMBRE]; paso a rsi el puntero al nomber del 1do estu.  
 		call string_menor; call string_menor, en RAX escupe 1(TRUE) o 0(FALSE) acorde al input
 		jmp FIN_Loco; Salta al fin de la funcion
 
-		THEN_NOMBREQ:
+		MismoNombre:
 		mov edi, dword [r12+OFFSET_EDAD]
 		mov esi, dword  [r13+OFFSET_EDAD]
 		cmp rdi, rsi
 		jl dio_menor
-		mov rax, 0
+		mov qword rax, 0
 		jmp FIN_Loco
 		dio_menor:
-		mov rax, 1
+		mov qword rax, 1
 
 
 		FIN_Loco:
@@ -551,15 +556,17 @@ llegamosAlFinaldLista2Print:
 		VeoSiListaEsVacia:
 
 			cmp qword [rdi+OFFSET_PRIMERO], 0; veo si la lista es vacia
-
-			jz AgregarVacio; si es el caso jmp a agrelgar e
+			je AgregarVacio; si es el caso jmp a agrelgar e
 
 		VeoSiDatoMayorAUltimo:
 			mov r14 ,  [rbx+OFFSET_ULTIMO]
-			mov rdi, [r14 +OFFSET_DATO]
+			mov rdi, r12
+			mov rsi, [r14 +OFFSET_DATO]
 			call r13
 			cmp rax, byte 0
-			jz VeoSiDatoMenorAPrimer
+			jne VeoSiDatoMenorAPrimer
+
+			DatoEsMayorAUltimo:
 			mov rdi, r12
 			call nodoCrear
 			mov [r14+OFFSET_SIGUIENTE], rax
@@ -570,11 +577,13 @@ llegamosAlFinaldLista2Print:
 
 		VeoSiDatoMenorAPrimer:
 			mov r14, [rbx+OFFSET_PRIMERO]
-			mov rsi, [r14+OFFSET_DATO]
-			mov rdi, r12
+			mov rdi, [r14+OFFSET_DATO]
+			mov rsi, r12
 			call r13
 			cmp rax, byte 0
-			jz BuscoPorListaNoVacia
+			jne BuscoPorListaNoVacia ;DATO ES MAYOR A PRIMERO
+
+			DatoMenorAPrimer:
 			mov rdi, r12
 			call nodoCrear
 			mov [r14+OFFSET_ANTERIOR], rax
@@ -606,7 +615,7 @@ llegamosAlFinaldLista2Print:
 		mov rdi, r12
 		call nodoCrear
 		mov[rbx+OFFSET_PRIMERO], rax
-		; mov[rbx+OFFSET_ULTIMO], rax
+		mov[rbx+OFFSET_ULTIMO], rax
 
 		SalgoDeInsertarOrdenado:
 
@@ -620,8 +629,7 @@ llegamosAlFinaldLista2Print:
 		ret 
 
 
-		
-	; void filtrarAltaLista( altaLista *l, tipoFuncionCompararDato f, void *datoCmp )
+; void filtrarAltaLista( altaLista *l, tipoFuncionCompararDato f, void *datoCmp )
 	filtrarAltaLista:
 		push rbp        ;A
 		mov rbp, rsp
@@ -638,7 +646,7 @@ llegamosAlFinaldLista2Print:
 
 		mov rbx, rdi;Lista
 		mov r12, rsi;Funcio
-		mov r13, rdi;Dato a comparar(
+		mov r13, rdx;Dato a comparar(
 		;para compara se le pasan primer el dato actual(RDI), dato comprar (RSI)
 
 
@@ -662,7 +670,7 @@ llegamosAlFinaldLista2Print:
 			mov rdi, [rdi+OFFSET_DATO]
 			mov rsi, r13
 			call r12
-			cmp rax, byte 1
+			cmp qword rax, 1
 			je FinFiltrarLista
 
 		UnNodoQueNoCumple:
@@ -850,3 +858,32 @@ FINmenor: add rbp, 8
 
 
 
+
+listaEnPantalla:
+		push rbp 
+		mov rbp, rsp
+		push r12
+		push r13
+		
+		mov r12, [rdi+OFFSET_PRIMERO]
+
+		loop_tag:
+		cmp r12, 0
+		jz terminar
+		mov r13, [r12+OFFSET_DATO]
+		
+		mov rdi, formatScreen
+		mov rsi, [r13+OFFSET_NOMBRE]
+		mov rdx, [r13+OFFSET_GRUPO]
+		mov ecx, [r13+OFFSET_EDAD]
+
+		LlamoAPrintf:
+		call printf
+		mov r12, [r12+OFFSET_SIGUIENTE]
+		jmp loop_tag
+
+		terminar:
+		pop r13
+		pop r12
+		pop rbp
+		ret

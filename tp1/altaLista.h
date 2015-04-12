@@ -71,3 +71,14 @@
 
 
 	
+
+
+/** Funciones mias en ASM **/
+
+
+	void listaEnPantalla( altaLista *l);
+
+
+
+
+	

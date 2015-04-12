@@ -4,6 +4,35 @@
 
 ## UPDATE 11/04/2015
 --------------------
+	*Finnaly done with insertarOrdena (TESTED FULL)
+	*filtrarLista still aint working
+	*Its 3am on weekend night and Im stuck coding in fucking assembly
+
+### NOTES
+---------
+The status of each fuction is as follows:
+
+	** estudianteCrear			(TESTED FULL)
+	** estudianteBorrar			(TESTED FULL)
+	** menorEstudiante			(TESTED FULL)
+	** estudianteConFormato		(TESTED FULL)
+	** estudianteImprimir		(TESTED FULL)
+	** nodoCrear				(TESTED FULL)
+	** nodoBorrar				(TESTED FULL)
+	** altaListaCrear			(TESTED FULL)
+	** altaListaBorrar			(TESTED FULL)
+	** altalistaImprimir		(TESTED FULL)
+	** edadMedia				(TESTED FULL)
+	** insertarOrdenado			(TESTED FULL)
+	** filtrarAltaLista			(WTF IS GOING ON!?)
+	** string_copiar			(TESTED FULL)
+	** string_longitud			(TESTED FULL)
+	** string_menor				(TESTED FULL)
+	**listaEnPantalla			(WORKS - UNTESTED)
+
+
+## UPDATE 11/04/2015
+--------------------
 	*New implementation of filtrarLista. (UNFINISHED)
 	*Final implementation of edadMedia. (TESTED)
 	*Bug clean up on insertarOrdenado. (TESTED)
