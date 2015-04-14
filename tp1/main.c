@@ -376,79 +376,37 @@ void testInsertarOrdenado() {
 	printf("\t\n*CREANDO ESTUDIANTE*\n");
 	int a = 0;
 	//estudiante* e0 = estudianteCrear("02A2", "1A", 0);
-	estudiante* e1 = estudianteCrear("Diego", "78", 33);
-	a++;
-	estudiante* e2 = estudianteCrear("Diego", "1A", 50);
-	a++;
-	estudiante* e3 = estudianteCrear("Diego", "1A", 50);
-	a++;
-	estudiante* e4 = estudianteCrear("Batista", "78", 33);
-	a++;
-	estudiante* e5 = estudianteCrear("Batista", "78", 33);
-	a++;
-	estudiante* e6 = estudianteCrear("Zacundo", "789", 18);
-	a++;
-	estudiante* e7 = estudianteCrear("C3P0", "90", 90);
-	a++;
-	estudiante* e8 = estudianteCrear("5689", "89", 33);
-	a++;
-	estudiante* e9 = estudianteCrear("", "1213", 120);
-	a++;
-	estudiante* eA = estudianteCrear("F000", "13", 900);
-	a++;
-
+	estudiante* e1 = estudianteCrear("Diego", "a8", 33);
+	estudiante* e2 = estudianteCrear("Kiego", "bA", 33);
+	estudiante* e3 = estudianteCrear("Eiego", "1A", 50);
+	// estudiante* e4 = estudianteCrear("Batista", "a78", 33);
+	// estudiante* e5 = estudianteCrear("Batista", "b78", 33);
+	// estudiante* e6 = estudianteCrear("Zacundo", "789", 18);
+	// estudiante* e7 = estudianteCrear("C3P0", "90", 90);
+	// estudiante* e8 = estudianteCrear("5689", "89", 33);
+	// estudiante* e9 = estudianteCrear("", "1213", 120);
+	// estudiante* eA = estudianteCrear("F000", "13", 900);
+	
+// 
 	printf("\t\n*%u ESTUDIANTE CREADOS*\n", a);
 	
 	printf("\t\n*GENERANDO LISTA*\n");
 	insertarOrdenado(todosLosEstudiantes, e1, (tipoFuncionCompararDato) menorEstudiante);
 	insertarOrdenado(todosLosEstudiantes, e2, (tipoFuncionCompararDato) menorEstudiante);
 	insertarOrdenado(todosLosEstudiantes, e3, (tipoFuncionCompararDato) menorEstudiante);
-	insertarOrdenado(todosLosEstudiantes, e4, (tipoFuncionCompararDato) menorEstudiante);
-	insertarOrdenado(todosLosEstudiantes, e5, (tipoFuncionCompararDato) menorEstudiante);
-	insertarOrdenado(todosLosEstudiantes, e6, (tipoFuncionCompararDato) menorEstudiante);
-	insertarOrdenado(todosLosEstudiantes, e7, (tipoFuncionCompararDato) menorEstudiante);
-	insertarOrdenado(todosLosEstudiantes, e8, (tipoFuncionCompararDato) menorEstudiante);
-	insertarOrdenado(todosLosEstudiantes, e9, (tipoFuncionCompararDato) menorEstudiante);
-	insertarOrdenado(todosLosEstudiantes, eA, (tipoFuncionCompararDato) menorEstudiante);
+	// insertarOrdenado(todosLosEstudiantes, e4, (tipoFuncionCompararDato) menorEstudiante);
+	// insertarOrdenado(todosLosEstudiantes, e5, (tipoFuncionCompararDato) menorEstudiante);
+	// // insertarOrdenado(todosLosEstudiantes, e6, (tipoFuncionCompararDato) menorEstudiante);
+	// insertarOrdenado(todosLosEstudiantes, e7, (tipoFuncionCompararDato) menorEstudiante);
+	// insertarOrdenado(todosLosEstudiantes, e8, (tipoFuncionCompararDato) menorEstudiante);
+	// insertarOrdenado(todosLosEstudiantes, e9, (tipoFuncionCompararDato) menorEstudiante);
+	// insertarOrdenado(todosLosEstudiantes, eA, (tipoFuncionCompararDato) menorEstudiante);
 
 	printf("\t\n*IMPRIMIENDO LISTA*\n");
 
 	listaEnPantalla(todosLosEstudiantes);
 
 
-	// assert(todosLosEstudiantes->primero->dato == e1);
-	// assert(todosLosEstudiantes->ultimo->dato == e1);
-	// printf("\t\t\tPrimer estudiante agregado\n");
-	// insertarOrdenado(todosLosEstudiantes, e2, (tipoFuncionCompararDato) menorEstudiante);
-	
-	// nodo *primero = todosLosEstudiantes->primero;
-	// nodo *ultimo = todosLosEstudiantes->ultimo;
-
-	// assert(primero->dato == e1);
-	// assert(primero->anterior == NULL);
-	// assert(primero->siguiente == ultimo);
-	// assert(ultimo->dato == e2);
-	// assert(ultimo->anterior == primero);
-	// assert(ultimo->siguiente == NULL);
-	// printf("\t\t\tSegundo estudiante agregado\n");
-	
-	// insertarOrdenado(todosLosEstudiantes, e3, (tipoFuncionCompararDato) menorEstudiante);
-
-	// primero = todosLosEstudiantes->primero;
-	// nodo *segundo = primero->siguiente;
-	// ultimo = todosLosEstudiantes->ultimo;
-	
-	// assert(primero->dato == e1);
-	// assert(primero->anterior == NULL);
-	// assert(primero->siguiente == segundo);
-	// assert(segundo->dato == e3);
-	// assert(segundo->anterior == primero);
-	// assert(segundo->siguiente == ultimo);
-	// assert(ultimo->dato == e2);
-	// assert(ultimo->anterior == segundo);
-	// assert(ultimo->siguiente == NULL);
-	// printf("\t\tLa lista fue creada correctamente\n");
-	
 	printf("\t\n*BORRANDO LISTA*\n");
 	altaListaBorrar(todosLosEstudiantes, (tipoFuncionBorrarDato) estudianteBorrar);
 	printf("\t\n*ECHO*\n");
@@ -459,55 +417,42 @@ void testFiltrarAltaLista(){
 	printf("\n**************************************\n");
 	printf("\t\n*CREANDO LISTAS*\n");
 	altaLista* listaRecortar = altaListaCrear();
-	altaLista* listaSave = altaListaCrear();
+
 	printf("\t\n*LISTAS ECHA*\n");
 	printf("\n**************************************\n");
 	printf("\t\n*GENERANDO ESTUDIANTE BARDERO*\n");
 	estudiante* cmp = estudianteCrear("Gianfranco","Lechuga",12);
 	printf("\t\n*ESTUDIANTE BARDERO ECHO*\n");
 
-	//printf("\tFiltrando lista...\n");
-	//filtrarAltaLista(lista, (tipoFuncionCompararDato) menorEstudiante, cmp);
-	//assert(lista->primero == NULL);
-	//assert(lista->ultimo == NULL);
-	//printf("\tLista filtrada correctamente\n");
 	printf("\n**************************************\n");
 
 	printf("\t\n*GENERANDO NERDS*\n");
 	estudiante* e0 = estudianteCrear("02A2", "1A", 0); 
-	estudiante* e1 = estudianteCrear("Diego", "78", 33);
+	estudiante* e1 = estudianteCrear("", "78", 33);
 	estudiante* e2 = estudianteCrear("Luke", "1A", 50); //V
 	estudiante* e3 = estudianteCrear("Headroom", "1A", 50);//V
-	estudiante* e4 = estudianteCrear("Ruperrta", "78", 33);//V
-	estudiante* e5 = estudianteCrear("Batista", "78", 33);
-	estudiante* e6 = estudianteCrear("Mao", "789", 18);//V
-	estudiante* e7 = estudianteCrear("C3P0", "90", 90);
-	estudiante* e8 = estudianteCrear("Khan", "89", 33);//V
-	estudiante* e9 = estudianteCrear("", "1213", 120);
-	estudiante* eA = estudianteCrear("Zoe", "13", 900);//V
-	printf("\t\n*NERDS CREADOS*\n");
-	
-	//printf("\tAgregando un estudiante a la lista...\n");
-	//insertarAtras(lista, e1);
-	//printf("\tFiltrando lista...\n");
-	//filtrarAltaLista(lista, (tipoFuncionCompararDato) menorEstudiante, cmp);
-	//assert(lista->primero == NULL);
-	//assert(lista->ultimo == NULL);
-	//printf("La lista se filrto correctamente\n");
-	// printf("\n**************************************\n");
-	// printf("\t\n*METIENDO NERDS EN ORDEN*\n");
-	// insertarOrdenado(listaRecortar, e0, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e1, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e2, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e3, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e4, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e5, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e6, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e7, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e8, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, e9, (tipoFuncionCompararDato) menorEstudiante);
-	// insertarOrdenado(listaRecortar, eA, (tipoFuncionCompararDato) menorEstudiante);
-	//printf("\t\n*NERDS EN SOTANO*\n");
+	int a = 0;
+	//estudiante* e0 = estudianteCrear("02A2", "1A", 0);
+	estudiante* ea1 = estudianteCrear("Diego", "78", 33);
+	a++;
+	estudiante* ea2 = estudianteCrear("Diego", "1A", 50);
+	a++;
+	estudiante* ea3 = estudianteCrear("Diego", "1A", 50);
+	a++;
+	estudiante* ea4 = estudianteCrear("Batista", "78", 33);
+	a++;
+	estudiante* ea5 = estudianteCrear("Batista", "78", 33);
+	a++;
+	estudiante* ea6 = estudianteCrear("Zacundo", "789", 18);
+	a++;
+	estudiante* ea7 = estudianteCrear("C3P0", "90", 90);
+	a++;
+	estudiante* ea8 = estudianteCrear("5689", "89", 33);
+	a++;
+	estudiante* ea9 = estudianteCrear("", "1213", 120);
+	a++;
+	estudiante* eaA = estudianteCrear("F000", "13", 900);
+	a++;
 
 
 	printf("\n**************************************\n");
@@ -516,53 +461,37 @@ void testFiltrarAltaLista(){
 	insertarAtras(listaRecortar, e0);
 
 	insertarAtras(listaRecortar, e1);
-	insertarAtras(listaRecortar, e2);
+	insertarAtras(listaRecortar, e2);	
 	insertarAtras(listaRecortar, e3);
-	insertarAtras(listaRecortar, e4);
-	insertarAtras(listaRecortar, e5);
-	insertarAtras(listaRecortar, e6);
-	insertarAtras(listaRecortar, e7);
-	insertarAtras(listaRecortar, e8);
-	insertarAtras(listaRecortar, e9);
-	insertarAtras(listaRecortar, eA);
+	insertarAtras(listaRecortar, ea1);
+	insertarAtras(listaRecortar, ea2);
+	insertarAtras(listaRecortar, ea3);
+	insertarAtras(listaRecortar, ea4);
+	insertarAtras(listaRecortar, ea5);
+	insertarAtras(listaRecortar, ea6);
+	insertarAtras(listaRecortar, ea7);
+	insertarAtras(listaRecortar, ea8);
+	//insertarAtras(listaRecortar, ea9);
+	insertarAtras(listaRecortar, eaA);
 
-	//insertarAtras(listaSave, e0);
-	//insertarAtras(listaSave, e1);
-	//insertarAtras(listaSave, e5);
-	//insertarAtras(listaSave, e6);
-	//insertarAtras(listaSave, e7);
-	insertarAtras(listaSave, e9);
 	printf("\t\n*NERDS EN SOTANO*\n");
 	printf("\n**************************************\n");
 
-
+	altaLista* listaaux = altaListaCrear();
+	insertarAtras(listaaux, ea9);
 	printf("\t\n*VICTIMAS*\n");
 	listaEnPantalla(listaRecortar);
-	printf("\t\n*SALVO*\n");
-	listaEnPantalla(listaSave);
+
 
 	printf("\n**************************************\n");
 	printf("\t\n*BULLYING*\n");
+	
 	filtrarAltaLista(listaRecortar, (tipoFuncionCompararDato) menorEstudiante, cmp);
-	filtrarAltaLista(listaSave, (tipoFuncionCompararDato) menorEstudiante, cmp);
 	printf("\t\n*BULLYING ECHO*\n");
 	printf("\n**************************************\n");
 
 	printf("\t\n*SOBREVIVEN*\n");
 	listaEnPantalla(listaRecortar);
-
-	printf("\n**************************************\n");
-
-	printf("\t\n*ESPERADA*\n");
-	listaEnPantalla(listaSave);
-	//altaListaImprimir(lista, "listafiltrada.txt", (tipoFuncionImprimirDato) estudianteImprimir);
-	//nodo* primero = lista->primero;
-	//nodo* segundo = primero->siguiente;
-	// nodo* tercero = segundo->siguiente;
-	// assert(primero->dato == e2);
-	// assert(segundo->dato == e4);
-	// assert(tercero->dato == e5);
-	// assert(tercero == lista->ultimo);
 
 	printf("\n**************************************\n");
 
@@ -572,25 +501,25 @@ void testFiltrarAltaLista(){
 
 	printf("\t\n*BORRANDO NERDS*\n");
 	altaListaBorrar(listaRecortar, (tipoFuncionBorrarDato) estudianteBorrar);
-	altaListaBorrar(listaSave, (tipoFuncionBorrarDato) estudianteBorrar);
+	altaListaBorrar(listaaux, (tipoFuncionBorrarDato) estudianteBorrar);
 	printf("\t\n*LISTA BORRADA*\n");
 
 }
 
 int main (void){
 
-	// testStringLongitud();
-	// testsStringCopiar();
-	// testCompararStrings();
-	// testCrearYBorrarEstudiante();
-	//testCompararEstudiantes();
-	// testEstudianteConFormato();
-	// testEstudianteImprimir();
-	// testCrearYBorrarNodo();
-	// testAltaListaCrearYAltaListaBorrar();
-	// testAltaListaImprimir();
-	// testEdadMedia();
-	// testInsertarOrdenado();
+	testStringLongitud();
+	testsStringCopiar();
+	 testCompararStrings();
+	testCrearYBorrarEstudiante();
+	testCompararEstudiantes();
+	testEstudianteConFormato();
+	testEstudianteImprimir();
+	testCrearYBorrarNodo();
+	testAltaListaCrearYAltaListaBorrar();
+	testAltaListaImprimir();
+	testEdadMedia();
+	testInsertarOrdenado();
 	testFiltrarAltaLista();
 	return 0;
 }

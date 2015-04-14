@@ -2,6 +2,42 @@
 ---------------------------------------------------
 ---------------------------------------------------
 
+## UPDATE 14/04/2015
+--------------------
+	*SHIT IS DOOOOOONEEEEE 
+	*Changed jump in menorEstudiante from jl to jle, as by the .pdf
+	*I LIKE COOOKIESS!!!!
+
+	The status of each fuction is as follows:
+	
+	** estudianteCrear			(TESTED FULL) PASSES
+	** estudianteBorrar			(TESTED FULL) PASSES
+	** menorEstudiante			(TESTED FULL) PASSES
+	** estudianteConFormato		(TESTED FULL) PASSES
+	** estudianteImprimir		(TESTED FULL) PASSES
+	** nodoCrear				(TESTED FULL) PASSES
+	** nodoBorrar				(TESTED FULL) PASSES
+	** altaListaCrear			(TESTED FULL) PASSES
+	** altaListaBorrar			(TESTED FULL) PASSES
+	** altalistaImprimir		(TESTED FULL) PASSES
+	** edadMedia				(TESTED FULL) PASSES
+	** insertarOrdenado			(TESTED FULL) PASSES
+	** filtrarAltaLista			(TESTED FULL) PASSES
+	** string_copiar			(TESTED FULL) PASSES
+	** string_longitud			(TESTED FULL) PASSES
+	** string_menor				(TESTED FULL) PASSES
+	**listaEnPantalla			(WORKS - UNTESTED)
+
+### NOTES
+---------
+	- The "" name bug.. Not actually a bug, it happens when the program was asked to delete something twice
+	- Mayor changes in insertarOrdenado
+	- Still need to get the hash code in order to turn this thing in
+	- Should check the main.c file and clean up some the "homebrew" tests
+	
+
+
+
 ## UPDATE 12/04/2015
 --------------------
 	*Managed to delet almost all bugs and pached up all mem leaks
@@ -11,22 +47,22 @@
 ---------
 The status of each fuction is as follows:
 	
-	** estudianteCrear			(TESTED FULL)
-	** estudianteBorrar			(TESTED FULL)
-	** menorEstudiante			(TESTED FULL)
-	** estudianteConFormato		(TESTED FULL)
-	** estudianteImprimir		(TESTED FULL)
-	** nodoCrear				(TESTED FULL)
-	** nodoBorrar				(TESTED FULL)
-	** altaListaCrear			(TESTED FULL)
-	** altaListaBorrar			(TESTED FULL)
-	** altalistaImprimir		(TESTED FULL)
-	** edadMedia				(TESTED FULL)
-	** insertarOrdenado			(TESTED FULL)
-	** filtrarAltaLista			(TESTED FULL)
-	** string_copiar			(TESTED FULL)
-	** string_longitud			(TESTED FULL)
-	** string_menor				(TESTED FULL)
+	** estudianteCrear			(TESTED FULL) PASSES
+	** estudianteBorrar			(TESTED FULL) PASSES
+	** menorEstudiante			(TESTED FULL) PASSES
+	** estudianteConFormato		(TESTED FULL) PASSES
+	** estudianteImprimir		(TESTED FULL) PASSES
+	** nodoCrear				(TESTED FULL) PASSES
+	** nodoBorrar				(TESTED FULL) PASSES
+	** altaListaCrear			(TESTED FULL) PASSES
+	** altaListaBorrar			(TESTED FULL) PASSES
+	** altalistaImprimir		(TESTED FULL) PASSES
+	** edadMedia				(TESTED FULL) PASSES
+	** insertarOrdenado			(TESTED FULL) DOESNT PASS
+	** filtrarAltaLista			(TESTED FULL) 
+	** string_copiar			(TESTED FULL) PASSES
+	** string_longitud			(TESTED FULL) PASSES
+	** string_menor				(TESTED FULL) POSIBLE BUG
 	**listaEnPantalla			(WORKS - UNTESTED)
 
 ## UPDATE 11/04/2015

@@ -69,7 +69,7 @@ section .data
 	formatGrp: DB   9, '%s', 10, 0
 	formatAge: DB 9, '%u', 10, 0
 	formatFileAppend: DB 'a+', 0
-	formatListaVacia: DB 'vacia', 10
+	formatListaVacia: DB '<vacia>', 10
 
 	;formato_estudiante_pantalla: DB "Nombre: %s", 10, 9, "Grupo: %s", 10, 9, "Edad: %u", 10, 0
 
@@ -174,7 +174,7 @@ STDNT_AGE_PALOCATION:
 		mov edi, dword [r12+OFFSET_EDAD]
 		mov esi, dword  [r13+OFFSET_EDAD]
 		cmp rdi, rsi
-		jl dio_menor
+		jle dio_menor
 		mov qword rax, 0
 		jmp FIN_Loco
 		dio_menor:
@@ -439,11 +439,6 @@ ImprimerEstudianteDeLista:
 		
 		jmp RecorrerEImprimir
 
-
-
-
-
-
 		altaListaImprimirEstaVacia:
 		mov rdi, formatListaVacia
 		mov rsi, r12
@@ -528,15 +523,10 @@ llegamosAlFinaldLista2Print:
 		ret 
 
 
-
-
-
-
 	; void insertarOrdenado( altaLista *l, void *dato, tipoFuncionCompararDato f )
 	insertarOrdenado:
 
 	; bool menorEstudiante( estudiante *e1 RDI , estudiante *e2 RSI){
-	; menorEstudiante:
 
 		push rbp        ;A
 		mov rbp, rsp
@@ -577,10 +567,11 @@ llegamosAlFinaldLista2Print:
 
 		VeoSiDatoMenorAPrimer:
 			mov r14, [rbx+OFFSET_PRIMERO]
-			mov rdi, [r14+OFFSET_DATO]
-			mov rsi, r12
+			mov rsi, [r14+OFFSET_DATO]
+			mov rdi, r12
 			call r13
-			cmp rax, byte 0
+			cmp rax, byte 1
+
 			jne BuscoPorListaNoVacia ;DATO ES MAYOR A PRIMERO
 
 			DatoMenorAPrimer:
@@ -594,20 +585,24 @@ llegamosAlFinaldLista2Print:
 
 			;caso contrario
 		BuscoPorListaNoVacia:
-			
-			mov r14, [r14+OFFSET_SIGUIENTE]
-			mov rsi, [r14+OFFSET_DATO]
+			mov rsi, [r14+OFFSET_SIGUIENTE]
+			mov rsi, [rsi+OFFSET_DATO]
 			mov rdi, r12
 			call r13 
-			cmp rax, byte 0
-			jz BuscoPorListaNoVacia
+			cmp rax, byte 1
+			je insertoNodo
+			mov r14, [r14+OFFSET_SIGUIENTE]
+			jmp BuscoPorListaNoVacia
+
+			insertoNodo:
 			mov rdi, r12
 			call nodoCrear
-			mov r15, [r14+OFFSET_ANTERIOR]
-			mov [r15+OFFSET_SIGUIENTE], rax
-			mov [r14+OFFSET_ANTERIOR], rax
-			mov [rax+OFFSET_SIGUIENTE], r14
-			mov [rax+OFFSET_ANTERIOR], r15
+			mov r15, [r14+OFFSET_SIGUIENTE]
+			mov [r15+OFFSET_ANTERIOR], rax
+			mov [r14+OFFSET_SIGUIENTE], rax
+			mov [rax+OFFSET_ANTERIOR], r14
+			mov [rax+OFFSET_SIGUIENTE], r15
+
 			jmp SalgoDeInsertarOrdenado
 
 		AgregarVacio:
@@ -629,7 +624,7 @@ llegamosAlFinaldLista2Print:
 		ret 
 
 
-; void filtrarAltaLista( altaLista *l, tipoFuncionCompararDato f, void *datoCmp )
+; ; void filtrarAltaLista( altaLista *l, tipoFuncionCompararDato f, void *datoCmp )
 	filtrarAltaLista:
 		push rbp        ;A
 		mov rbp, rsp

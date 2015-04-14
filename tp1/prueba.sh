@@ -21,7 +21,7 @@ fi
 
 echo " "
 echo "**Corriendo diferencias con la catedra"
-
+# --side-by-side
 DIFFER="diff -d"
 ERRORDIFF=0
 
