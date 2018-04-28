@@ -10,22 +10,22 @@
 
 	The status of each fuction is as follows:
 	
-	** estudianteCrear			(TESTED FULL) PASSES
-	** estudianteBorrar			(TESTED FULL) PASSES
-	** menorEstudiante			(TESTED FULL) PASSES
-	** estudianteConFormato		(TESTED FULL) PASSES
-	** estudianteImprimir		(TESTED FULL) PASSES
-	** nodoCrear				(TESTED FULL) PASSES
-	** nodoBorrar				(TESTED FULL) PASSES
-	** altaListaCrear			(TESTED FULL) PASSES
-	** altaListaBorrar			(TESTED FULL) PASSES
-	** altalistaImprimir		(TESTED FULL) PASSES
-	** edadMedia				(TESTED FULL) PASSES
-	** insertarOrdenado			(TESTED FULL) PASSES
-	** filtrarAltaLista			(TESTED FULL) PASSES
-	** string_copiar			(TESTED FULL) PASSES
-	** string_longitud			(TESTED FULL) PASSES
-	** string_menor				(TESTED FULL) PASSES
+	** estudianteCrear			(TESTED FULL) PASS
+	** estudianteBorrar			(TESTED FULL) PASS
+	** menorEstudiante			(TESTED FULL) PASS
+	** estudianteConFormato			(TESTED FULL) PASS
+	** estudianteImprimir			(TESTED FULL) PASS
+	** nodoCrear				(TESTED FULL) PASS
+	** nodoBorrar				(TESTED FULL) PASS
+	** altaListaCrear			(TESTED FULL) PASS
+	** altaListaBorrar			(TESTED FULL) PASS
+	** altalistaImprimir			(TESTED FULL) PASS
+	** edadMedia				(TESTED FULL) PASS
+	** insertarOrdenado			(TESTED FULL) PASS
+	** filtrarAltaLista			(TESTED FULL) PASS
+	** string_copiar			(TESTED FULL) PASS
+	** string_longitud			(TESTED FULL) PASS
+	** string_menor				(TESTED FULL) PASS
 	**listaEnPantalla			(WORKS - UNTESTED)
 
 ### NOTES
@@ -47,21 +47,21 @@
 ---------
 The status of each fuction is as follows:
 	
-	** estudianteCrear			(TESTED FULL) PASSES
-	** estudianteBorrar			(TESTED FULL) PASSES
-	** menorEstudiante			(TESTED FULL) PASSES
-	** estudianteConFormato		(TESTED FULL) PASSES
-	** estudianteImprimir		(TESTED FULL) PASSES
-	** nodoCrear				(TESTED FULL) PASSES
-	** nodoBorrar				(TESTED FULL) PASSES
-	** altaListaCrear			(TESTED FULL) PASSES
-	** altaListaBorrar			(TESTED FULL) PASSES
-	** altalistaImprimir		(TESTED FULL) PASSES
-	** edadMedia				(TESTED FULL) PASSES
+	** estudianteCrear			(TESTED FULL) PASS
+	** estudianteBorrar			(TESTED FULL) PASS
+	** menorEstudiante			(TESTED FULL) PASS
+	** estudianteConFormato			(TESTED FULL) PASS
+	** estudianteImprimir			(TESTED FULL) PASS
+	** nodoCrear				(TESTED FULL) PASS
+	** nodoBorrar				(TESTED FULL) PASS
+	** altaListaCrear			(TESTED FULL) PASS
+	** altaListaBorrar			(TESTED FULL) PASS
+	** altalistaImprimir			(TESTED FULL) PASS
+	** edadMedia				(TESTED FULL) PASS
 	** insertarOrdenado			(TESTED FULL) DOESNT PASS
 	** filtrarAltaLista			(TESTED FULL) 
-	** string_copiar			(TESTED FULL) PASSES
-	** string_longitud			(TESTED FULL) PASSES
+	** string_copiar			(TESTED FULL) PASS
+	** string_longitud			(TESTED FULL) PASS
 	** string_menor				(TESTED FULL) POSIBLE BUG
 	**listaEnPantalla			(WORKS - UNTESTED)
 
